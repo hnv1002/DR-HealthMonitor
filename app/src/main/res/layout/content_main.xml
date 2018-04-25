@@ -1,68 +1,226 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<com.sothree.slidinguppanel.SlidingUpPanelLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/sliding_layout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    app:layout_behavior="@string/appbar_scrolling_view_behavior"
-    tools:context="edu.rit.drsystemhealthmonitor.MainActivity"
-    tools:showIn="@layout/activity_main">
+    android:gravity="bottom">
 
-    <EditText
-        android:id="@+id/editText"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="30dp"
-        android:layout_marginStart="30dp"
-        android:layout_marginTop="200dp"
-        android:ems="10"
-        android:inputType="text|textPersonName"
-        android:singleLine="true"
-        android:text="@string/message"
-        android:textAlignment="center"
-        android:textAllCaps="false"
-        android:textSize="18sp"
-        android:visibility="visible"
-        app:layout_constraintEnd_toStartOf="@+id/button"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+    <android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context="edu.rit.DRMonitor.MainActivity"
+        tools:showIn="@layout/app_bar_main">
 
-    <Button
-        android:id="@+id/button"
-        style="@style/Widget.AppCompat.Button.Borderless"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="30dp"
-        android:background="@color/colorPrimary"
-        android:onClick="sendMessageRequest"
-        android:text="@string/button_get"
-        app:layout_constraintBaseline_toBaselineOf="@+id/editText"
-        app:layout_constraintEnd_toEndOf="parent" />
+        <android.support.constraint.Guideline
+            android:id="@+id/date_range_top"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layout_constraintGuide_percent="0.2" />
 
-    <EditText
-        android:id="@+id/editText2"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="30dp"
-        android:layout_marginStart="30dp"
-        android:layout_marginTop="120dp"
-        android:ems="10"
-        android:inputType="textPersonName"
-        android:text="@string/filename"
-        android:textAlignment="center"
-        app:layout_constraintEnd_toStartOf="@+id/button2"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/editText" />
+        <android.support.constraint.Guideline
+            android:id="@+id/sync_button_top"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layout_constraintGuide_percent="0.3" />
 
-    <Button
-        android:id="@+id/button2"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="30dp"
-        android:background="@color/colorPrimary"
-        android:onClick="getFileRequest"
-        android:text="@string/button_get"
-        app:layout_constraintBaseline_toBaselineOf="@+id/editText2"
-        app:layout_constraintEnd_toEndOf="parent" />
-</android.support.constraint.ConstraintLayout>
+        <android.support.constraint.Guideline
+            android:id="@+id/sync_button_left"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_percent="0.35" />
+
+        <android.support.constraint.Guideline
+            android:id="@+id/sync_button_right"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_percent="0.65" />
+
+        <android.support.constraint.Guideline
+            android:id="@+id/status_top"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layout_constraintGuide_percent="0.50" />
+
+        <android.support.constraint.Guideline
+            android:id="@+id/status_left"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_percent="0.15" />
+
+        <android.support.constraint.Guideline
+            android:id="@+id/status_right"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_percent="0.55" />
+
+        <android.support.constraint.Guideline
+            android:id="@+id/connected_time_top"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layout_constraintGuide_percent="0.60" />
+
+        <android.support.constraint.Guideline
+            android:id="@+id/connected_time_left"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_percent="0.15" />
+
+        <android.support.constraint.Guideline
+            android:id="@+id/wifi_signal_top"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layout_constraintGuide_percent="0.70" />
+
+        <android.support.constraint.Guideline
+            android:id="@+id/wifi_signal_left"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_percent="0.15" />
+
+        <TextView
+            android:id="@+id/server_status"
+            android:layout_height="wrap_content"
+            android:layout_width="0dp"
+            android:text="Server Status:"
+            android:textSize="24sp"
+            app:layout_constraintLeft_toLeftOf="@id/status_left"
+            app:layout_constraintTop_toTopOf="@id/status_top" />
+
+        <Button
+            android:id="@+id/sync_button"
+            style="@style/Widget.AppCompat.Button.Colored"
+            android:layout_height="wrap_content"
+            android:onClick="getListOfFiles"
+            android:text="SYNC"
+            android:textSize="32sp"
+            android:layout_width="0dp"
+            app:layout_constraintLeft_toLeftOf="@id/sync_button_left"
+            app:layout_constraintRight_toRightOf="@id/sync_button_right"
+            app:layout_constraintTop_toTopOf="@id/sync_button_top" />
+
+        <TextView
+            android:id="@+id/server_status_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="N/A"
+            android:textSize="24sp"
+            app:layout_constraintTop_toTopOf="@id/status_top"
+            app:layout_constraintLeft_toLeftOf="@id/status_right" />
+
+        <TextView
+            android:id="@+id/connected_time"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Last connected time:"
+            android:textSize="24sp"
+            app:layout_constraintLeft_toLeftOf="@id/connected_time_left"
+            app:layout_constraintTop_toTopOf="@id/connected_time_top" />
+
+        <TextView
+            android:id="@+id/lastConnectedTime"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="N/A"
+            android:textSize="24sp"
+            app:layout_constraintTop_toTopOf="@id/connected_time_top"
+            app:layout_constraintLeft_toLeftOf="@id/status_right" />
+
+        <TextView
+            android:id="@+id/wifiSignal"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Wifi Signal Strength:"
+            android:textSize="24sp"
+            app:layout_constraintTop_toTopOf="@id/wifi_signal_top"
+            app:layout_constraintLeft_toLeftOf="@id/wifi_signal_left" />
+
+        <TextView
+            android:id="@+id/signalStrength"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="None"
+            android:textSize="24sp"
+            app:layout_constraintTop_toTopOf="@id/wifi_signal_top"
+            app:layout_constraintLeft_toLeftOf="@id/status_right" />
+
+        <EditText
+            android:id="@+id/startDate"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:ems="8"
+            android:gravity="center"
+            android:onClick="setStartDate"
+            android:focusable="false"
+            app:layout_constraintTop_toTopOf="@id/date_range_top"
+            app:layout_constraintLeft_toRightOf="@id/wifi_signal_left" />
+
+        <TextView
+            android:id="@+id/date_range_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="to"
+            android:textSize="24sp"
+            app:layout_constraintTop_toTopOf="@id/date_range_top"
+            app:layout_constraintLeft_toRightOf="@id/startDate"
+            app:layout_constraintRight_toLeftOf="@id/endDate" />
+
+        <EditText
+            android:id="@+id/endDate"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:ems="8"
+            android:gravity="center"
+            android:onClick="setEndDate"
+            android:focusable="false"
+            android:windowSoftInputMode="stateHidden|adjustResize"
+            app:layout_constraintTop_toTopOf="@id/date_range_top"
+            app:layout_constraintLeft_toRightOf="@id/status_right" />
+
+    </android.support.constraint.ConstraintLayout>
+
+    <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="?android:attr/actionBarSize"
+        android:fillViewport="true" >
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:id="@+id/help_page_arrow"
+                android:tint="@color/done_text_color_normal"
+                app:srcCompat="@android:drawable/arrow_up_float" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:text="Help Page"
+                android:textSize="24sp"
+                android:gravity="center_horizontal"/>
+
+        </LinearLayout>
+
+    </ScrollView>
+
+</com.sothree.slidinguppanel.SlidingUpPanelLayout>

@@ -1,0 +1,508 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.sothree.slidinguppanel.SlidingUpPanelLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/sliding_layout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:gravity="bottom">
+
+    <android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context="edu.rit.DRMonitor.CalibrationSettingsActivity">
+
+        <android.support.constraint.Guideline
+            android:id="@+id/headers_top"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layout_constraintGuide_percent="0.075" />
+
+        <android.support.constraint.Guideline
+            android:id="@+id/g1_top"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layout_constraintGuide_percent="0.15" />
+
+        <android.support.constraint.Guideline
+            android:id="@+id/g2_top"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layout_constraintGuide_percent="0.2" />
+
+        <android.support.constraint.Guideline
+            android:id="@+id/g3_top"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layout_constraintGuide_percent="0.25" />
+
+        <android.support.constraint.Guideline
+            android:id="@+id/p1_top"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layout_constraintGuide_percent="0.3" />
+
+        <android.support.constraint.Guideline
+            android:id="@+id/p2_top"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layout_constraintGuide_percent="0.35" />
+
+        <android.support.constraint.Guideline
+            android:id="@+id/t1_top"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layout_constraintGuide_percent="0.4" />
+
+        <android.support.constraint.Guideline
+            android:id="@+id/t2_top"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layout_constraintGuide_percent="0.45" />
+
+        <android.support.constraint.Guideline
+            android:id="@+id/t3_top"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layout_constraintGuide_percent="0.5" />
+
+        <android.support.constraint.Guideline
+            android:id="@+id/numSamp_top"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layout_constraintGuide_percent="0.6" />
+
+        <android.support.constraint.Guideline
+            android:id="@+id/interval_top"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layout_constraintGuide_percent="0.7" />
+
+        <android.support.constraint.Guideline
+            android:id="@+id/label_left"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_percent="0.05" />
+
+        <android.support.constraint.Guideline
+            android:id="@+id/scale_left"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_percent="0.35" />
+
+        <android.support.constraint.Guideline
+            android:id="@+id/shift_left"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_percent="0.65" />
+
+        <TextView
+            android:id="@+id/label_text"
+            android:layout_height="wrap_content"
+            android:layout_width="0dp"
+            android:text="INPUT"
+            android:textStyle="bold"
+            android:textSize="36sp"
+            app:layout_constraintLeft_toLeftOf="@id/label_left"
+            app:layout_constraintTop_toTopOf="@id/headers_top" />
+
+        <TextView
+            android:id="@+id/scale_text"
+            android:layout_height="wrap_content"
+            android:layout_width="0dp"
+            android:text="SCALE"
+            android:textStyle="bold"
+            android:textSize="36sp"
+            app:layout_constraintLeft_toLeftOf="@id/scale_left"
+            app:layout_constraintTop_toTopOf="@id/headers_top" />
+
+        <TextView
+            android:id="@+id/shift_text"
+            android:layout_height="wrap_content"
+            android:layout_width="0dp"
+            android:text="SHIFT"
+            android:textStyle="bold"
+            android:textSize="36sp"
+            app:layout_constraintLeft_toLeftOf="@id/shift_left"
+            app:layout_constraintTop_toTopOf="@id/headers_top" />
+
+        <TextView
+            android:id="@+id/g1_text"
+            android:layout_height="wrap_content"
+            android:layout_width="0dp"
+            android:text="G1:"
+            android:textSize="24sp"
+            app:layout_constraintLeft_toLeftOf="@id/label_left"
+            app:layout_constraintTop_toTopOf="@id/g1_top" />
+
+        <EditText
+            android:id="@+id/g1_scale"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:ems="5"
+            android:inputType="number"
+            android:text="1"
+            android:textAlignment="center"
+            android:textSize="18sp"
+            app:layout_constraintLeft_toLeftOf="@id/scale_left"
+            app:layout_constraintTop_toTopOf="@+id/g1_top" />
+
+        <EditText
+            android:id="@+id/g1_shift"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:ems="5"
+            android:inputType="number"
+            android:text="1"
+            android:textAlignment="center"
+            android:textSize="18sp"
+            app:layout_constraintLeft_toLeftOf="@id/shift_left"
+            app:layout_constraintTop_toTopOf="@+id/g1_top" />
+
+        <TextView
+            android:id="@+id/g2_text"
+            android:layout_height="wrap_content"
+            android:layout_width="0dp"
+            android:text="G2:"
+            android:textSize="24sp"
+            app:layout_constraintLeft_toLeftOf="@id/label_left"
+            app:layout_constraintTop_toTopOf="@id/g2_top" />
+
+        <EditText
+            android:id="@+id/g2_scale"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:ems="5"
+            android:inputType="number"
+            android:text="1"
+            android:textAlignment="center"
+            android:textSize="18sp"
+            app:layout_constraintLeft_toLeftOf="@id/scale_left"
+            app:layout_constraintTop_toTopOf="@+id/g2_top" />
+
+        <EditText
+            android:id="@+id/g2_shift"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:ems="5"
+            android:inputType="number"
+            android:text="1"
+            android:textAlignment="center"
+            android:textSize="18sp"
+            app:layout_constraintLeft_toLeftOf="@id/shift_left"
+            app:layout_constraintTop_toTopOf="@+id/g2_top" />
+
+        <TextView
+            android:id="@+id/g3_text"
+            android:layout_height="wrap_content"
+            android:layout_width="0dp"
+            android:text="G3:"
+            android:textSize="24sp"
+            app:layout_constraintLeft_toLeftOf="@id/label_left"
+            app:layout_constraintTop_toTopOf="@id/g3_top" />
+
+        <EditText
+            android:id="@+id/g3_scale"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:ems="5"
+            android:inputType="number"
+            android:text="1"
+            android:textAlignment="center"
+            android:textSize="18sp"
+            app:layout_constraintLeft_toLeftOf="@id/scale_left"
+            app:layout_constraintTop_toTopOf="@+id/g3_top" />
+
+        <EditText
+            android:id="@+id/g3_shift"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:ems="5"
+            android:inputType="number"
+            android:text="1"
+            android:textAlignment="center"
+            android:textSize="18sp"
+            app:layout_constraintLeft_toLeftOf="@id/shift_left"
+            app:layout_constraintTop_toTopOf="@+id/g3_top" />
+
+        <TextView
+            android:id="@+id/p1_text"
+            android:layout_height="wrap_content"
+            android:layout_width="0dp"
+            android:text="P1:"
+            android:textSize="24sp"
+            app:layout_constraintLeft_toLeftOf="@id/label_left"
+            app:layout_constraintTop_toTopOf="@id/p1_top" />
+
+        <EditText
+            android:id="@+id/p1_scale"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:ems="5"
+            android:inputType="number"
+            android:text="1"
+            android:textAlignment="center"
+            android:textSize="18sp"
+            app:layout_constraintLeft_toLeftOf="@id/scale_left"
+            app:layout_constraintTop_toTopOf="@+id/p1_top" />
+
+        <EditText
+            android:id="@+id/p1_shift"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:ems="5"
+            android:inputType="number"
+            android:text="1"
+            android:textAlignment="center"
+            android:textSize="18sp"
+            app:layout_constraintLeft_toLeftOf="@id/shift_left"
+            app:layout_constraintTop_toTopOf="@+id/p1_top" />
+
+        <TextView
+            android:id="@+id/p2_text"
+            android:layout_height="wrap_content"
+            android:layout_width="0dp"
+            android:text="P2:"
+            android:textSize="24sp"
+            app:layout_constraintLeft_toLeftOf="@id/label_left"
+            app:layout_constraintTop_toTopOf="@id/p2_top" />
+
+        <EditText
+            android:id="@+id/p2_scale"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:ems="5"
+            android:inputType="number"
+            android:text="1"
+            android:textAlignment="center"
+            android:textSize="18sp"
+            app:layout_constraintLeft_toLeftOf="@id/scale_left"
+            app:layout_constraintTop_toTopOf="@+id/p2_top" />
+
+        <EditText
+            android:id="@+id/p2_shift"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:ems="5"
+            android:inputType="number"
+            android:text="1"
+            android:textAlignment="center"
+            android:textSize="18sp"
+            app:layout_constraintLeft_toLeftOf="@id/shift_left"
+            app:layout_constraintTop_toTopOf="@+id/p2_top" />
+
+        <TextView
+            android:id="@+id/t1_text"
+            android:layout_height="wrap_content"
+            android:layout_width="0dp"
+            android:text="T1:"
+            android:textSize="24sp"
+            app:layout_constraintLeft_toLeftOf="@id/label_left"
+            app:layout_constraintTop_toTopOf="@id/t1_top" />
+
+        <EditText
+            android:id="@+id/t1_scale"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:ems="5"
+            android:inputType="number"
+            android:text="1"
+            android:textAlignment="center"
+            android:textSize="18sp"
+            app:layout_constraintLeft_toLeftOf="@id/scale_left"
+            app:layout_constraintTop_toTopOf="@+id/t1_top" />
+
+        <EditText
+            android:id="@+id/t1_shift"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:ems="5"
+            android:inputType="number"
+            android:text="1"
+            android:textAlignment="center"
+            android:textSize="18sp"
+            app:layout_constraintLeft_toLeftOf="@id/shift_left"
+            app:layout_constraintTop_toTopOf="@+id/t1_top" />
+
+        <TextView
+            android:id="@+id/t2_text"
+            android:layout_height="wrap_content"
+            android:layout_width="0dp"
+            android:text="T2:"
+            android:textSize="24sp"
+            app:layout_constraintLeft_toLeftOf="@id/label_left"
+            app:layout_constraintTop_toTopOf="@id/t2_top" />
+
+        <EditText
+            android:id="@+id/t2_scale"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:ems="5"
+            android:inputType="number"
+            android:text="1"
+            android:textAlignment="center"
+            android:textSize="18sp"
+            app:layout_constraintLeft_toLeftOf="@id/scale_left"
+            app:layout_constraintTop_toTopOf="@+id/t2_top" />
+
+        <EditText
+            android:id="@+id/t2_shift"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:ems="5"
+            android:inputType="number"
+            android:text="1"
+            android:textAlignment="center"
+            android:textSize="18sp"
+            app:layout_constraintLeft_toLeftOf="@id/shift_left"
+            app:layout_constraintTop_toTopOf="@+id/t2_top" />
+
+        <TextView
+            android:id="@+id/t3_text"
+            android:layout_height="wrap_content"
+            android:layout_width="0dp"
+            android:text="T3:"
+            android:textSize="24sp"
+            app:layout_constraintLeft_toLeftOf="@id/label_left"
+            app:layout_constraintTop_toTopOf="@id/t3_top" />
+
+        <EditText
+            android:id="@+id/t3_scale"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:ems="5"
+            android:inputType="number"
+            android:text="1"
+            android:textAlignment="center"
+            android:textSize="18sp"
+            app:layout_constraintLeft_toLeftOf="@id/scale_left"
+            app:layout_constraintTop_toTopOf="@+id/t3_top" />
+
+        <EditText
+            android:id="@+id/t3_shift"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:ems="5"
+            android:inputType="number"
+            android:text="1"
+            android:textAlignment="center"
+            android:textSize="18sp"
+            app:layout_constraintLeft_toLeftOf="@id/shift_left"
+            app:layout_constraintTop_toTopOf="@+id/t3_top" />
+
+        <TextView
+            android:id="@+id/numSamp_text"
+            android:layout_height="wrap_content"
+            android:layout_width="0dp"
+            android:text="numSamp:"
+            android:textSize="24sp"
+            app:layout_constraintLeft_toLeftOf="@id/label_left"
+            app:layout_constraintTop_toTopOf="@id/numSamp_top" />
+
+        <EditText
+            android:id="@+id/numSamp_val"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:inputType="number"
+            android:text="20000"
+            android:textAlignment="center"
+            android:textSize="18sp"
+            app:layout_constraintLeft_toLeftOf="@id/scale_left"
+            app:layout_constraintTop_toTopOf="@+id/numSamp_top" />
+
+        <TextView
+            android:id="@+id/interval_text"
+            android:layout_height="wrap_content"
+            android:layout_width="0dp"
+            android:text="interval:"
+            android:textSize="24sp"
+            app:layout_constraintLeft_toLeftOf="@id/label_left"
+            app:layout_constraintTop_toTopOf="@id/interval_top" />
+
+        <EditText
+            android:id="@+id/interval_val"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:inputType="number"
+            android:text="3600"
+            android:textAlignment="center"
+            android:textSize="18sp"
+            app:layout_constraintLeft_toLeftOf="@id/scale_left"
+            app:layout_constraintTop_toTopOf="@+id/interval_top" />
+
+        <android.support.constraint.Guideline
+            android:id="@+id/save_button_top"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layout_constraintGuide_percent="0.85" />
+
+        <android.support.constraint.Guideline
+            android:id="@+id/save_button_left"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_percent="0.7" />
+
+        <Button
+            android:id="@+id/calibration_settings_save_button"
+            style="@style/Widget.AppCompat.Button.Colored"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:onClick="updateCalibrationSettings"
+            android:text="SAVE"
+            android:textSize="24sp"
+            app:layout_constraintLeft_toLeftOf="@id/save_button_left"
+            app:layout_constraintTop_toTopOf="@id/save_button_top" />
+
+    </android.support.constraint.ConstraintLayout>
+
+
+    <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:fillViewport="true" >
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:id="@+id/help_page_arrow"
+                android:tint="@color/done_text_color_normal"
+                app:srcCompat="@android:drawable/arrow_up_float" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:text="Help Page"
+                android:textSize="24sp"
+                android:gravity="center_horizontal"/>
+
+        </LinearLayout>
+
+    </ScrollView>
+
+</com.sothree.slidinguppanel.SlidingUpPanelLayout>

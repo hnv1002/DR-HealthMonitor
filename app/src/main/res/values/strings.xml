@@ -1,7 +1,9 @@
 <resources>
-    <string name="app_name">DR System Health Monitor</string>
+    <string name="app_name">DRMonitor</string>
+
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+    DRMonitor
     <string name="action_settings">Settings</string>
-    <string name="message">Enter message</string>
-    <string name="filename">Enter filename</string>
-    <string name="button_get">GET</string>
+    <string name="title_activity_system_settings">SystemSettingsActivity</string>
 </resources>

@@ -1,0 +1,28 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <item
+        android:id="@+id/fft_graph_options"
+        android:title="Scale"
+        app:showAsAction="always">
+        <menu>
+            <item
+                android:id="@+id/fft_g_scale"
+                android:onClick="gScale"
+                android:title="G" />
+            <item
+                android:id="@+id/fft_db_scale"
+                android:onClick="dBScale"
+                android:title="dB" />
+        </menu>
+    </item>
+
+    <item
+        android:id="@+id/fft_home_button"
+        android:icon="@drawable/ic_home"
+        android:iconTint="@android:color/black"
+        android:onClick="goToHomeView"
+        android:title="Home"
+        app:showAsAction="always" />
+
+</menu>

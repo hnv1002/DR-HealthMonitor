@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:showIn="navigation_view">
+
+    <group android:checkableBehavior="single">
+        <item
+            android:id="@+id/nav_vibration"
+            android:title="Vibration Graph" />
+        <item
+            android:id="@+id/nav_pressure"
+            android:title="Pressure Graph" />
+        <item
+            android:id="@+id/nav_temperature"
+            android:title="Temperature Graph" />
+        <item
+            android:id="@+id/nav_pv"
+            android:title="PV Graph" />
+        <item
+            android:id="@+id/nav_fft"
+            android:title="FFT Graph" />
+    </group>
+
+    <item android:title="">
+        <menu>
+            <item
+                android:id="@+id/nav_history"
+                android:title="Historical Data" />
+            <item
+                android:id="@+id/nav_calibration_settings"
+                android:title="Calibration Settings" />
+            <item
+                android:id="@+id/nav_system_settings"
+                android:title="System Settings" />
+            <item
+                android:id="@+id/nav_about"
+                android:title="About" />
+        </menu>
+    </item>
+
+</menu>

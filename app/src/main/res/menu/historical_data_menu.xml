@@ -1,0 +1,60 @@
+<menu xmlns:tools="http://schemas.android.com/tools"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <item
+        android:id="@+id/action_delete"
+        android:icon="@android:drawable/ic_menu_delete"
+        android:iconTint="@android:color/holo_red_dark"
+        android:onClick="deleteFiles"
+        android:title="Delete"
+        app:showAsAction="always"
+        tools:iconTint="@android:color/background_light" />
+
+    <item
+        android:id="@+id/raw_data_options"
+        android:title="Raw Data"
+        app:showAsAction="always">
+        <menu>
+            <item
+                android:id="@+id/action_pressure"
+                android:onClick="pressureGraph"
+                android:title="Pressure" />
+            <item
+                android:id="@+id/action_temperature"
+                android:onClick="temperatureGraph"
+                android:title="Temperature" />
+            <item
+                android:id="@+id/action_accel"
+                android:onClick="vibrationGraph"
+                android:title="Vibration" />
+        </menu>
+    </item>
+
+    <item
+        android:id="@+id/vibration_options"
+        android:title="Vibrations"
+        app:showAsAction="always">
+        <menu>
+            <item
+                android:id="@+id/action_fft_rectangular"
+                android:onClick="fftGraph"
+                android:title="Rectangular" />
+            <item
+                android:id="@+id/action_hanning"
+                android:onClick="fftHanningGraph"
+                android:title="Hanning" />
+            <item
+                android:id="@+id/action_hamming"
+                android:onClick="fftHammingGraph"
+                android:title="Hamming" />
+        </menu>
+    </item>
+
+    <item
+        android:id="@+id/action_display"
+        android:onClick="plotGraph"
+        android:title="PV Graph"
+        app:showAsAction="always" />
+
+</menu>

@@ -1,0 +1,176 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<com.sothree.slidinguppanel.SlidingUpPanelLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/sliding_layout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:gravity="bottom">
+
+    <android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context="edu.rit.DRMonitor.SystemSettingsActivity">
+
+        <android.support.constraint.Guideline
+            android:id="@+id/server_ip_top"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layout_constraintGuide_percent="0.1" />
+
+        <android.support.constraint.Guideline
+            android:id="@+id/server_ip_left"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_percent="0.05" />
+
+        <android.support.constraint.Guideline
+            android:id="@+id/server_ip_right"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_percent="0.4" />
+
+        <android.support.constraint.Guideline
+            android:id="@+id/server_ip_bottom"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layout_constraintGuide_percent="0.18" />
+
+        <TextView
+            android:id="@+id/server_ip_text"
+            android:layout_height="wrap_content"
+            android:layout_width="0dp"
+            android:text="Server IP:"
+            android:textSize="24sp"
+            app:layout_constraintLeft_toLeftOf="@id/server_ip_left"
+            app:layout_constraintTop_toTopOf="@id/server_ip_top"
+            app:layout_constraintBottom_toBottomOf="@id/server_ip_bottom"/>
+
+        <EditText
+            android:id="@+id/server_ip"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:inputType="text"
+            android:text="0.0.0.0"
+            android:textAlignment="center"
+            android:textSize="18sp"
+            app:layout_constraintBottom_toBottomOf="@id/server_ip_bottom"
+            app:layout_constraintLeft_toLeftOf="@id/server_ip_right"
+            app:layout_constraintTop_toTopOf="@+id/server_ip_top" />
+
+        <android.support.constraint.Guideline
+            android:id="@+id/server_port_top"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layout_constraintGuide_percent="0.2" />
+
+        <android.support.constraint.Guideline
+            android:id="@+id/server_port_left"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_percent="0.05" />
+
+        <android.support.constraint.Guideline
+            android:id="@+id/server_port_right"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_percent="0.4" />
+
+        <android.support.constraint.Guideline
+            android:id="@+id/server_port_bottom"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layout_constraintGuide_percent="0.28" />
+
+        <TextView
+            android:id="@+id/server_port_text"
+            android:layout_height="wrap_content"
+            android:layout_width="0dp"
+            android:text="Server Port:"
+            android:textSize="24sp"
+            app:layout_constraintLeft_toLeftOf="@id/server_port_left"
+            app:layout_constraintTop_toTopOf="@id/server_port_top"
+            app:layout_constraintBottom_toBottomOf="@id/server_port_bottom"/>
+
+        <EditText
+            android:id="@+id/server_port"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:inputType="number"
+            android:text="0"
+            android:textAlignment="center"
+            android:textSize="18sp"
+            app:layout_constraintLeft_toLeftOf="@id/server_port_right"
+            app:layout_constraintTop_toTopOf="@+id/server_port_top"
+            app:layout_constraintBottom_toBottomOf="@id/server_port_bottom"/>
+
+        <android.support.constraint.Guideline
+            android:id="@+id/save_button_top"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layout_constraintGuide_percent="0.85" />
+
+        <android.support.constraint.Guideline
+            android:id="@+id/save_button_left"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_percent="0.7" />
+
+        <Button
+            android:id="@+id/system_settings_save_button"
+            style="@style/Widget.AppCompat.Button.Colored"
+            android:layout_height="wrap_content"
+            android:text="SAVE"
+            android:onClick="updateSystemSettings"
+            android:textSize="24sp"
+            android:layout_width="0dp"
+            app:layout_constraintLeft_toLeftOf="@id/save_button_left"
+            app:layout_constraintTop_toTopOf="@id/save_button_top" />
+
+    </android.support.constraint.ConstraintLayout>
+
+    <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:fillViewport="true" >
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:id="@+id/help_page_arrow"
+                android:tint="@color/done_text_color_normal"
+                app:srcCompat="@android:drawable/arrow_up_float" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:text="Help Page"
+                android:textSize="24sp"
+                android:gravity="center_horizontal"/>
+
+        </LinearLayout>
+
+    </ScrollView>
+
+</com.sothree.slidinguppanel.SlidingUpPanelLayout>

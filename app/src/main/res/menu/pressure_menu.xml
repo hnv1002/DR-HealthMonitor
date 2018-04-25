@@ -1,0 +1,28 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <item
+        android:id="@+id/pressure_graph_options"
+        android:title="Scale"
+        app:showAsAction="always">
+        <menu>
+            <item
+                android:id="@+id/pressure_kpa_scale"
+                android:onClick="kPaScale"
+                android:title="kPa" />
+            <item
+                android:id="@+id/pressure_psi_scale"
+                android:onClick="psiScale"
+                android:title="psi" />
+        </menu>
+    </item>
+
+    <item
+        android:id="@+id/pressure_home_button"
+        android:icon="@drawable/ic_home"
+        android:iconTint="@android:color/black"
+        android:onClick="goToHomeView"
+        android:title="Home"
+        app:showAsAction="always" />
+
+</menu>

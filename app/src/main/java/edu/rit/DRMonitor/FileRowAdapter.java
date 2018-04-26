@@ -12,19 +12,27 @@ import android.widget.TextView;
 import java.util.ArrayList;
 
 /**
- * Created by H on 1/21/2018.
+ * Custom adapter to display list of historical data files on History screen
  */
 
 public class FileRowAdapter extends ArrayAdapter<HistoricalDataFile> {
     private Context context;
     public static ArrayList<HistoricalDataFile> files;
 
+    // Constructor
     public FileRowAdapter(Context context, ArrayList<HistoricalDataFile> files) {
         super(context, R.layout.file_row, files);
         this.context = context;
         this.files = files;
     }
 
+    /**
+     * Each file is returned as a row with a checkbox and filename
+     * @param position
+     * @param convertView
+     * @param parent
+     * @return
+     */
     @Override
     public View getView(final int position, View convertView, ViewGroup parent) {
         View view = convertView;

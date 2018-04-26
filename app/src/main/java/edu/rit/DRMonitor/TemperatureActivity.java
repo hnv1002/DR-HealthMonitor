@@ -27,6 +27,9 @@ import java.util.Map;
 
 import static edu.rit.DRMonitor.Utils.STORE_DIR;
 
+/**
+ * Temperature screen to show beginning and ending temperatures
+ */
 public class TemperatureActivity extends AppCompatActivity {
 
     private MultiSpinner spinner;
@@ -138,6 +141,11 @@ public class TemperatureActivity extends AppCompatActivity {
         }.execute();
     }
 
+    /**
+     * Menu on action bar which has Scale and Home button
+     * @param menu
+     * @return
+     */
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
@@ -145,12 +153,21 @@ public class TemperatureActivity extends AppCompatActivity {
         return true;
     }
 
+    /**
+     * When home button is clicked, navigate to Home screen
+     * @param item
+     */
     public void goToHomeView(MenuItem item) {
         finish();
         Intent intent = new Intent(getBaseContext(), MainActivity.class);
         startActivity(intent);
     }
 
+    /**
+     * When back button is clicked, navigate to History screen
+     * @param item
+     * @return
+     */
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
@@ -165,6 +182,16 @@ public class TemperatureActivity extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
+    /**
+     * Calculate and return temperature bar chart
+     * @param dataFile
+     * @param temp1Color
+     * @param temp2Color
+     * @param temp3Color
+     * @param secondData
+     * @param dataFile2
+     * @return
+     */
     private BarData plotTemperature(Map<String, float[]> dataFile, int temp1Color, int temp2Color, int temp3Color, boolean secondData, Map<String, float[]> dataFile2) {
         if (dataFile != null) {
             float[] temp1 = dataFile.get(Utils.TEMP_1_KEY);
@@ -270,6 +297,10 @@ public class TemperatureActivity extends AppCompatActivity {
         return null;
     }
 
+    /**
+     * Convert from F to C scale
+     * @param item
+     */
     public void cScale(MenuItem item) {
         if (chart != null && currentScale != null && !currentScale.equals("c")) {
             BarData newData = new BarData();
@@ -290,6 +321,10 @@ public class TemperatureActivity extends AppCompatActivity {
         }
     }
 
+    /**
+     * Convert from C to F scale
+     * @param item
+     */
     public void fScale(MenuItem item) {
         if (chart != null && currentScale != null && !currentScale.equals("f")) {
             BarData newData = new BarData();

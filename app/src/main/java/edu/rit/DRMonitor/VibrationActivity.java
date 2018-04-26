@@ -27,6 +27,9 @@ import java.util.Map;
 
 import static edu.rit.DRMonitor.Utils.STORE_DIR;
 
+/**
+ * Vibration screen to show raw data of accelerometers
+ */
 public class VibrationActivity extends AppCompatActivity {
 
     private MultiSpinner spinner;
@@ -145,6 +148,11 @@ public class VibrationActivity extends AppCompatActivity {
         }.execute();
     }
 
+    /**
+     * Menu on action bar which has Scale and Home button
+     * @param menu
+     * @return
+     */
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
@@ -152,12 +160,21 @@ public class VibrationActivity extends AppCompatActivity {
         return true;
     }
 
+    /**
+     * When home button is clicked, navigate to Home screen
+     * @param item
+     */
     public void goToHomeView(MenuItem item) {
         finish();
         Intent intent = new Intent(getBaseContext(), MainActivity.class);
         startActivity(intent);
     }
 
+    /**
+     * When back button is clicked, navigate to History screen
+     * @param item
+     * @return
+     */
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
@@ -172,6 +189,15 @@ public class VibrationActivity extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
+    /**
+     * Calculate and return vibration graph
+     * @param dataFile
+     * @param accelXColor
+     * @param accelYColor
+     * @param accelZColor
+     * @param secondData
+     * @return
+     */
     private LineData plotVibration(Map<String, float[]> dataFile, int accelXColor, int accelYColor, int accelZColor, boolean secondData) {
         if (dataFile != null) {
             float[] accelX = dataFile.get(Utils.ACCEL_X_KEY);
@@ -221,6 +247,10 @@ public class VibrationActivity extends AppCompatActivity {
         return null;
     }
 
+    /**
+     * Convert from G to dB scale
+     * @param item
+     */
     public void dBScale(MenuItem item) {
         if (chart != null && currentScale != null && !currentScale.equals("dB")) {
             LineData newData = new LineData();
@@ -247,6 +277,10 @@ public class VibrationActivity extends AppCompatActivity {
         }
     }
 
+    /**
+     * Convert from dB to G scale
+     * @param item
+     */
     public void gScale(MenuItem item) {
         if (chart != null && currentScale != null && !currentScale.equals("g")) {
             LineData newData = new LineData();

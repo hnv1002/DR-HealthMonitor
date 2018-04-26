@@ -3,6 +3,9 @@ package edu.rit.DRMonitor;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 
+/**
+ * Functionality in the About screen
+ */
 public class AboutActivity extends AppCompatActivity {
 
     @Override

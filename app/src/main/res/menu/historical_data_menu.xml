@@ -12,6 +12,13 @@
         tools:iconTint="@android:color/background_light" />
 
     <item
+        android:id="@+id/action_stats"
+        android:iconTint="@android:color/holo_red_dark"
+        android:onClick="statisticsPage"
+        android:title="Statistics"
+        app:showAsAction="always" />
+
+    <item
         android:id="@+id/raw_data_options"
         android:title="Raw Data"
         app:showAsAction="always">
@@ -53,7 +60,7 @@
 
     <item
         android:id="@+id/action_display"
-        android:onClick="plotGraph"
+        android:onClick="plotPVGraph"
         android:title="PV Graph"
         app:showAsAction="always" />
 

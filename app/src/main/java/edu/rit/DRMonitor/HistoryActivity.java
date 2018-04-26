@@ -27,6 +27,10 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 import static edu.rit.DRMonitor.Utils.gson;
 
+/**
+ * History screen which shows list of data files and a menu with
+ * options to delete the files or plot them
+ */
 public class HistoryActivity extends AppCompatActivity {
 
     private ListView listView;
@@ -38,6 +42,7 @@ public class HistoryActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_history);
 
+        // Behavior of the help page sliding panel at the bottom
         SlidingUpPanelLayout panel = findViewById(R.id.sliding_layout);
         panel.addPanelSlideListener(new SlidingUpPanelLayout.PanelSlideListener() {
             @Override
@@ -116,6 +121,11 @@ public class HistoryActivity extends AppCompatActivity {
         }.execute();
     }
 
+    /**
+     * Menu on action bar which has Delete, Raw Data, PV Graph, and Vibration button
+     * @param menu
+     * @return
+     */
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
@@ -123,6 +133,10 @@ public class HistoryActivity extends AppCompatActivity {
         return true;
     }
 
+    /**
+     * Delete selected files
+     * @param item
+     */
     public void deleteFiles(MenuItem item) {
         boolean deleted = false;
         boolean noFileToDelete = true;
@@ -160,7 +174,11 @@ public class HistoryActivity extends AppCompatActivity {
         }
     }
 
-    public void plotGraph(MenuItem item) {
+    /**
+     * Plot Pressure Volume graph of selected data
+     * @param item
+     */
+    public void plotPVGraph(MenuItem item) {
         List<HistoricalDataFile> files = getSelectedFiles();
         if (files != null) {
             Intent intent = new Intent(getBaseContext(), PVActivity.class);
@@ -169,6 +187,10 @@ public class HistoryActivity extends AppCompatActivity {
         }
     }
 
+    /**
+     * Plot FFT graph with Hanning window
+     * @param item
+     */
     public void fftHanningGraph(MenuItem item) {
         List<HistoricalDataFile> files = getSelectedFiles();
         if (files != null) {
@@ -179,6 +201,10 @@ public class HistoryActivity extends AppCompatActivity {
         }
     }
 
+    /**
+     * Plot FFT graph with Hamming window
+     * @param item
+     */
     public void fftHammingGraph(MenuItem item) {
         List<HistoricalDataFile> files = getSelectedFiles();
         if (files != null) {
@@ -189,6 +215,10 @@ public class HistoryActivity extends AppCompatActivity {
         }
     }
 
+    /**
+     * Plot FFT graph with no window
+     * @param item
+     */
     public void fftGraph(MenuItem item) {
         List<HistoricalDataFile> files = getSelectedFiles();
         if (files != null) {
@@ -198,6 +228,10 @@ public class HistoryActivity extends AppCompatActivity {
         }
     }
 
+    /**
+     * Plot Pressure graph
+     * @param item
+     */
     public void pressureGraph(MenuItem item) {
         List<HistoricalDataFile> files = getSelectedFiles();
         if (files != null) {
@@ -207,6 +241,10 @@ public class HistoryActivity extends AppCompatActivity {
         }
     }
 
+    /**
+     * Plot Temperature graph
+     * @param item
+     */
     public void temperatureGraph(MenuItem item) {
         List<HistoricalDataFile> files = getSelectedFiles();
         if (files != null) {
@@ -216,6 +254,10 @@ public class HistoryActivity extends AppCompatActivity {
         }
     }
 
+    /**
+     * Plot vibration graph
+     * @param item
+     */
     public void vibrationGraph(MenuItem item) {
         List<HistoricalDataFile> files = getSelectedFiles();
         if (files != null) {
@@ -225,6 +267,28 @@ public class HistoryActivity extends AppCompatActivity {
         }
     }
 
+    /**
+     * Show statistics page of selected data file
+     * @param item
+     */
+    public void statisticsPage(MenuItem item) {
+        List<HistoricalDataFile> files = getSelectedFiles();
+        if (files != null) {
+            if (files.size() > 1) {
+                Toast toast = Toast.makeText(getApplicationContext(), "Statistics page only supports 1 file at this version", Toast.LENGTH_SHORT);
+                toast.show();
+            } else {
+                Intent intent = new Intent(getBaseContext(), StatisticsActivity.class);
+                intent.putExtra("filesToPlot", (Serializable) files);
+                startActivity(intent);
+            }
+        }
+    }
+
+    /**
+     * Loop through and return currently selected files (via checkboxes)
+     * @return
+     */
     private List<HistoricalDataFile> getSelectedFiles() {
         List<HistoricalDataFile> files = new ArrayList<>();
         for (HistoricalDataFile file : dataFiles) {
@@ -235,6 +299,7 @@ public class HistoryActivity extends AppCompatActivity {
         if (files.size() <= 2) {
             return files;
         } else {
+            // Current version only support comparison of at most 2 files
             Toast toast = Toast.makeText(getApplicationContext(), "Data comparison is only supported for 2 files at this time", Toast.LENGTH_SHORT);
             toast.show();
             return null;

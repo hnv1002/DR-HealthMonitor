@@ -10,9 +10,8 @@ import android.widget.ArrayAdapter;
 import java.util.List;
 
 /**
- * Created by H on 4/2/2018.
+ * Popup at each graph screen for user to choose which dataset to display or hide
  */
-
 public class MultiSpinner extends AppCompatSpinner implements
         DialogInterface.OnMultiChoiceClickListener, DialogInterface.OnCancelListener {
 
@@ -41,6 +40,10 @@ public class MultiSpinner extends AppCompatSpinner implements
             selected[which] = false;
     }
 
+    /**
+     * Dismiss dialog
+     * @param dialog
+     */
     @Override
     public void onCancel(DialogInterface dialog) {
         // refresh text on spinner
@@ -69,6 +72,10 @@ public class MultiSpinner extends AppCompatSpinner implements
         listener.onItemsSelected(selected);
     }
 
+    /**
+     * When options have been selected
+     * @return
+     */
     @Override
     public boolean performClick() {
         if (items != null) {
@@ -89,6 +96,12 @@ public class MultiSpinner extends AppCompatSpinner implements
         return true;
     }
 
+    /**
+     * Set up items for which user can select from
+     * @param items
+     * @param allText
+     * @param listener
+     */
     public void setItems(List<String> items, String allText,
                          MultiSpinnerListener listener) {
         this.items = items;
@@ -106,6 +119,10 @@ public class MultiSpinner extends AppCompatSpinner implements
         setAdapter(adapter);
     }
 
+    /**
+     * When user selected options
+     * @return
+     */
     public interface MultiSpinnerListener {
         public void onItemsSelected(boolean[] selected);
     }

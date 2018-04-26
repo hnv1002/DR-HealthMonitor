@@ -13,6 +13,9 @@ import com.sothree.slidinguppanel.SlidingUpPanelLayout;
 
 import static edu.rit.DRMonitor.MainActivity.SYSTEM_SETTINGS_FILE;
 
+/**
+ * System Settings screen to set up device settings
+ */
 public class SystemSettingsActivity extends AppCompatActivity {
     static SystemSettings systemSettings;
     static EditText server_ip_edit;
@@ -57,6 +60,10 @@ public class SystemSettingsActivity extends AppCompatActivity {
         }.execute();
     }
 
+    /**
+     * Update settings to local file
+     * @param view
+     */
     public void updateSystemSettings(View view) {
         String server_ip = server_ip_edit.getText().toString();
         int server_port = Integer.valueOf(server_port_edit.getText().toString());

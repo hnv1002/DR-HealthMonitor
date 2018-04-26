@@ -4,7 +4,8 @@ import java.io.File;
 import java.io.Serializable;
 
 /**
- * Created by H on 1/21/2018.
+ * Object representation of a data file which contains the file itself,
+ * the filename and whether the file is currently selected via checkbox
  */
 
 public class HistoricalDataFile implements Serializable{
@@ -13,6 +14,7 @@ public class HistoricalDataFile implements Serializable{
     private boolean isSelected;
     private File file;
 
+    // Constructor
     public HistoricalDataFile(String fileName, File file) {
         this.fileName = fileName;
         this.isSelected = false;

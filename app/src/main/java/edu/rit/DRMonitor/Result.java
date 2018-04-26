@@ -1,7 +1,7 @@
 package edu.rit.DRMonitor;
 
 /**
- * Created by Chris on 11/3/2017.
+ * Object representation of a response sent by Pi's server (not used currently)
  */
 
 public class Result {

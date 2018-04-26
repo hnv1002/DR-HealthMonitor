@@ -56,6 +56,9 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 import static edu.rit.DRMonitor.Utils.STORE_DIR;
 
+/**
+ * Main screen of the app
+ */
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
@@ -71,6 +74,10 @@ public class MainActivity extends AppCompatActivity
     static CalibrationSettings serverCalibrationSettings;
     static boolean serverAvailable = false;
 
+    /**
+     * Tasks performed when screen gets loaded
+     * @param savedInstanceState
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -88,6 +95,7 @@ public class MainActivity extends AppCompatActivity
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
 
+        // Behavior of help page sliding panel at the bottom
         SlidingUpPanelLayout panel = findViewById(R.id.sliding_layout);
         panel.addPanelSlideListener(new SlidingUpPanelLayout.PanelSlideListener() {
             @Override
@@ -107,19 +115,23 @@ public class MainActivity extends AppCompatActivity
         Toast toast = Toast.makeText(getApplicationContext(), "Connecting to server...", Toast.LENGTH_SHORT);
         toast.show();
 
+        // create data folder if there isn't one
         File dataFolder = new File(Environment.getExternalStorageDirectory().getPath() + File.separator + STORE_DIR);
         if (!dataFolder.exists()) {
             dataFolder.mkdir();
         }
-
+        // Update wifi signal status
         updateWifiSignal();
         serverSystemSettings = Utils.getSystemSettings(SYSTEM_SETTINGS_FILE);
         BASE_URL = "http://" + serverSystemSettings.getIpAddress() + ":" + serverSystemSettings.getServerPort() + "/api/";
+        // Update last connected time
         updateLastConnectedTime();
         serverSystemSettings.setLastConnectedTime(System.currentTimeMillis());
         Utils.updateSettingsFile(serverSystemSettings, SYSTEM_SETTINGS_FILE);
+        // Retrieve calibration settings from local file (may be different from the one on Pi)
         serverCalibrationSettings = Utils.getCalibrationSettings(CALIBRATION_SETTINGS_FILE);
 
+        // Send a ping to Pi's server to see if we're connecting to server
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl(BASE_URL)
                 .build();
@@ -154,14 +166,17 @@ public class MainActivity extends AppCompatActivity
         if (!folder.exists()) {
             new File(dataFolder.getPath()).mkdir();
         }
-
         dataFiles = Utils.getListOfFiles();
+        // Retrieve latest data file
         latestFile = Utils.getLatestDataFile(dataFiles);
         if (latestFile != null) {
             latestData = Utils.readData(Environment.getExternalStorageDirectory().getPath() + File.separator + STORE_DIR + File.separator + latestFile);
         }
     }
 
+    /**
+     * Open navigation drawer
+     */
     @Override
     public void onBackPressed() {
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
@@ -172,7 +187,12 @@ public class MainActivity extends AppCompatActivity
         }
     }
 
-    @SuppressWarnings("StatementWithEmptyBody")
+    /**
+     * Navigating to the correct screen based on selection
+     * By default, latest data file gets plotted
+     * @param item
+     * @return
+     */
     @Override
     public boolean onNavigationItemSelected(MenuItem item) {
         // Handle navigation view item clicks here.
@@ -193,6 +213,9 @@ public class MainActivity extends AppCompatActivity
         } else if (id == R.id.nav_fft) {
             Intent intent = new Intent(getBaseContext(), FFTActivity.class);
             startActivity(intent);
+        } else if (id == R.id.nav_statistics) {
+            Intent intent = new Intent(getBaseContext(), StatisticsActivity.class);
+            startActivity(intent);
         } else if (id == R.id.nav_history) {
             Intent intent = new Intent(this, HistoryActivity.class);
             startActivity(intent);
@@ -212,6 +235,11 @@ public class MainActivity extends AppCompatActivity
         return true;
     }
 
+    /**
+     * When SYNC button is pressed, send a request to server to get list of new files
+     * ase don the specified date range.     *
+     * @param view
+     */
     public void getListOfFiles(View view) {
         Toast toast;
         if (serverAvailable) {
@@ -223,16 +251,24 @@ public class MainActivity extends AppCompatActivity
             String endDate = endDateText.getText().toString();
             SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd");
             try {
+                // If both start date and end date are specified, retrieve files from start date
+                // to end date inclusively
                 if (!Strings.isNullOrEmpty(startDate) && !Strings.isNullOrEmpty(endDate)) {
                     start = dateFormat.parse(startDate).getTime();
                     end = dateFormat.parse(endDate).getTime() + (24*3600*1000);
-                } else if (!Strings.isNullOrEmpty(startDate) && Strings.isNullOrEmpty(endDate)) {
+                }
+                // If end date is not specified but start date is specified, retrieve files from start date to current moment
+                else if (!Strings.isNullOrEmpty(startDate) && Strings.isNullOrEmpty(endDate)) {
                     start = dateFormat.parse(startDate).getTime();
                     end = System.currentTimeMillis();
-                } else if (Strings.isNullOrEmpty(startDate) && !Strings.isNullOrEmpty(endDate)) {
+                }
+                // If start date is not specified but end date is, retrieve all files before the end date
+                else if (Strings.isNullOrEmpty(startDate) && !Strings.isNullOrEmpty(endDate)) {
                     start = 0;
                     end = dateFormat.parse(endDate).getTime() + (24*3600*1000);
-                } else {
+                }
+                // If no date is specified, retrieve all files
+                else {
                     start = 0;
                     end = System.currentTimeMillis();
                 }
@@ -282,6 +318,11 @@ public class MainActivity extends AppCompatActivity
         }
     }
 
+    /**
+     * Send a request to Pi's server to retrieve a file
+     * @param directory
+     * @param filename
+     */
     public void getFileRequest(final String directory, final String filename) {
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl(BASE_URL)
@@ -318,6 +359,13 @@ public class MainActivity extends AppCompatActivity
         });
     }
 
+    /**
+     * Write binary data from getFileRequest to local file on device
+     * @param body
+     * @param directory
+     * @param filename
+     * @return
+     */
     @TargetApi(Build.VERSION_CODES.M)
     private boolean writeResponseBodyToDisk(ResponseBody body, String directory, String filename) {
         try {
@@ -387,6 +435,9 @@ public class MainActivity extends AppCompatActivity
         }
     }
 
+    /**
+     * Update wifi signal strength
+     */
     private void updateWifiSignal() {
         WifiManager wifiManager = (WifiManager) getBaseContext().getApplicationContext().getSystemService(Context.WIFI_SERVICE);
         int numberOfLevels = 5;
@@ -396,6 +447,9 @@ public class MainActivity extends AppCompatActivity
         wifiSignal.setText(Utils.SignalStrength.getSignalStrength(level).toString());
     }
 
+    /**
+     * Update last connected time
+     */
     private void updateLastConnectedTime() {
         Date date = new Date(serverSystemSettings.getLastConnectedTime());
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("MM/dd/yyyy' 'HH:mm:ss");
@@ -403,6 +457,10 @@ public class MainActivity extends AppCompatActivity
         lastConnectedTime.setText(simpleDateFormat.format(date));
     }
 
+    /**
+     * Set start date to retrieve files
+     * @param view
+     */
     public void setStartDate(View view) {
         final Calendar c = Calendar.getInstance();
         int year = c.get(Calendar.YEAR);
@@ -420,6 +478,10 @@ public class MainActivity extends AppCompatActivity
         datePickerDialog.show();
     }
 
+    /**
+     * Set end date to retrieve files
+     * @param view
+     */
     public void setEndDate(View view) {
         final Calendar c = Calendar.getInstance();
         int year = c.get(Calendar.YEAR);

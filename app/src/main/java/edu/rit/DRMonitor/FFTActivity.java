@@ -29,6 +29,9 @@ import java.util.Map;
 
 import static edu.rit.DRMonitor.Utils.STORE_DIR;
 
+/**
+ * FFT screen which plots the fft graph of data files
+ */
 public class FFTActivity extends AppCompatActivity {
 
     private MultiSpinner spinner;
@@ -39,6 +42,10 @@ public class FFTActivity extends AppCompatActivity {
     private TextView range;
     private String currentScale;
 
+    /**
+     * When first loaded, parses data files and plot the graph
+     * @param savedInstanceState
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -46,6 +53,7 @@ public class FFTActivity extends AppCompatActivity {
         domain = findViewById(R.id.fft_domain);
         range = findViewById(R.id.fft_range);
 
+        // Behavior of help page sliding panel at the bottom
         SlidingUpPanelLayout panel = findViewById(R.id.sliding_layout);
         panel.addPanelSlideListener(new SlidingUpPanelLayout.PanelSlideListener() {
             @Override
@@ -62,6 +70,7 @@ public class FFTActivity extends AppCompatActivity {
             }
         });
 
+        // Parses data files in the background since it takes some time
         new DoInBackGroundWithProgressDialog("Loading FFT graph...", this) {
             @Override
             protected Void doInBackground(Void... voids) {
@@ -93,6 +102,7 @@ public class FFTActivity extends AppCompatActivity {
                 return null;
             }
 
+            // Once data files are parsed, plot the fft graph
             @Override
             protected void onPostExecute(Void params) {
                 super.onPostExecute(params);
@@ -102,6 +112,7 @@ public class FFTActivity extends AppCompatActivity {
                         items.add(data.getDataSetByIndex(i).getLabel());
                     }
                     final List<String> itemsCopy = new ArrayList<>(items);
+                    // Re-plot the graph when hiding a dataset or showing a previously hidden dataset
                     spinner = (MultiSpinner) findViewById(R.id.fftDatasetSpinner);
                     spinner.setItems(items, "All Data Sets", new MultiSpinner.MultiSpinnerListener() {
                         @Override
@@ -132,6 +143,7 @@ public class FFTActivity extends AppCompatActivity {
                             chart.invalidate();
                         }
                     });
+                    // Plot the full fft graph when first loaded
                     currentScale = "g";
                     chart = findViewById(R.id.fftLineChart);
                     chart.setData(data);
@@ -149,6 +161,11 @@ public class FFTActivity extends AppCompatActivity {
         }.execute();
     }
 
+    /**
+     * Menu on action bar which has Scale and Home button
+     * @param menu
+     * @return
+     */
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
@@ -156,12 +173,21 @@ public class FFTActivity extends AppCompatActivity {
         return true;
     }
 
+    /**
+     * When home button is clicked, navigate to Home screen
+     * @param item
+     */
     public void goToHomeView(MenuItem item) {
         finish();
         Intent intent = new Intent(getBaseContext(), MainActivity.class);
         startActivity(intent);
     }
 
+    /**
+     * When back button is clicked, navigate to History screen
+     * @param item
+     * @return
+     */
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
@@ -176,6 +202,16 @@ public class FFTActivity extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
+    /**
+     * Calculate FFT from the selected data file(s)
+     * @param dataFile
+     * @param accelXColor
+     * @param accelYColor
+     * @param accelZColor
+     * @param window
+     * @param secondData
+     * @return
+     */
     private LineData plotFFTCurve(Map<String, float[]> dataFile, int accelXColor, int accelYColor, int accelZColor, String window, boolean secondData) {
         if (dataFile != null) {
             float[] accelX = dataFile.get(Utils.ACCEL_X_KEY);
@@ -183,7 +219,7 @@ public class FFTActivity extends AppCompatActivity {
             float[] accelZ = dataFile.get(Utils.ACCEL_Z_KEY);
             if (accelX != null && accelY != null && accelZ != null) {
                 final int sampleRate = accelX.length;
-                removeDCOffset(accelX, accelY, accelZ);
+                Utils.removeDCOffset(accelX, accelY, accelZ);
 
                 FloatFFT_1D floatFFT_1D = new FloatFFT_1D(sampleRate);
                 if (window != null && window.equals("hanning")) {
@@ -215,12 +251,7 @@ public class FFTActivity extends AppCompatActivity {
                     float imZ = accelZ[i * 2 + 1];
                     resultZ[i] = (float) Math.sqrt(reZ * reZ + imZ * imZ) / resultZ.length;
                 }
-                /*
-                // remove spike at 0 offset
-                resultX[0] = 0;
-                resultY[0] = 0;
-                resultZ[0] = 0;
-                */
+
                 ArrayList<Entry> entriesX = new ArrayList<>();
                 ArrayList<Entry> entriesY = new ArrayList<>();
                 ArrayList<Entry> entriesZ = new ArrayList<>();
@@ -264,26 +295,14 @@ public class FFTActivity extends AppCompatActivity {
         return null;
     }
 
-    private void removeDCOffset(float[] accelX, float[] accelY, float[] accelZ) {
-        float accelXMean = 0;
-        float accelYMean = 0;
-        float accelZMean = 0;
-        for (int i = 0; i < accelX.length; i++) {
-            accelXMean += accelX[i];
-            accelYMean += accelY[i];
-            accelZMean += accelZ[i];
-        }
-        accelXMean /= accelX.length;
-        accelYMean /= accelY.length;
-        accelZMean /= accelZ.length;
 
-        for (int i = 0; i < accelX.length; i++) {
-            accelX[i] = accelX[i] - accelXMean;
-            accelY[i] = accelY[i] - accelYMean;
-            accelZ[i] = accelZ[i] - accelZMean;
-        }
-    }
 
+    /**
+     * Apply Hanning window to FFT graph
+     * @param signal
+     * @param length
+     * @return
+     */
     private float[] hanningWindow(float[] signal, int length) {
         for (int i = 0; i < length; i++) {
             signal[i] = (float)(signal[i]*0.5*(1.0-Math.cos(2.0*Math.PI*i/(length-1))));
@@ -291,6 +310,12 @@ public class FFTActivity extends AppCompatActivity {
         return signal;
     }
 
+    /**
+     * Apply Hamming window to FFT graph
+     * @param signal
+     * @param length
+     * @return
+     */
     private float[] hammingWindow(float[] signal, int length) {
         for (int i = 0; i < length; i++) {
             signal[i] = (float)(signal[i]*(0.54-0.46*Math.cos(2.0*Math.PI*i/(length-1))));
@@ -298,6 +323,10 @@ public class FFTActivity extends AppCompatActivity {
         return signal;
     }
 
+    /**
+     * Convert FFT graph from G scale to dB scale
+     * @param item
+     */
     public void dBScale(MenuItem item) {
         if (chart != null && currentScale != null && !currentScale.equals("dB")) {
             LineData newData = new LineData();
@@ -324,6 +353,10 @@ public class FFTActivity extends AppCompatActivity {
         }
     }
 
+    /**
+     * Convert FFT graph from dB scale to G scale
+     * @param item
+     */
     public void gScale(MenuItem item) {
         if (chart != null && currentScale != null && !currentScale.equals("g")) {
             LineData newData = new LineData();

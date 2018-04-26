@@ -1,51 +1,448 @@
 <?xml version="1.0" encoding="utf-8"?>
-<com.sothree.slidinguppanel.SlidingUpPanelLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:id="@+id/sliding_layout"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:gravity="bottom">
+    tools:context="edu.rit.DRMonitor.StatisticsActivity">
 
-    <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:tools="http://schemas.android.com/tools"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        xmlns:app="http://schemas.android.com/apk/res-auto"
-        android:fillViewport="true"
-        tools:context="edu.rit.DRMonitor.StatisticsActivity">
+    <android.support.constraint.Guideline
+        android:id="@+id/firstColumn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.25" />
+
+    <android.support.constraint.Guideline
+        android:id="@+id/secondColumn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.6" />
+
+    <android.support.constraint.Guideline
+        android:id="@+id/thirdColumn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.9" />
+
+    <android.support.constraint.Guideline
+        android:id="@+id/minMaxBottom"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.1" />
+
+    <TextView
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="MAX"
+        android:textSize="30sp"
+        app:layout_constraintRight_toRightOf="@id/secondColumn"
+        app:layout_constraintBottom_toBottomOf="@id/minMaxBottom"/>
+
+    <TextView
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="MIN"
+        android:textSize="30sp"
+        app:layout_constraintRight_toRightOf="@id/thirdColumn"
+        app:layout_constraintBottom_toBottomOf="@id/minMaxBottom"/>
+
+    <TextView
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="TEMP"
+        android:textSize="24sp"
+        app:layout_constraintBottom_toTopOf="@id/minMaxBottom"/>
+
+    <android.support.constraint.Guideline
+        android:id="@+id/t1_bottom"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.2" />
+
+    <TextView
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="T1"
+        android:textSize="18sp"
+        app:layout_constraintRight_toRightOf="@id/firstColumn"
+        app:layout_constraintBottom_toTopOf="@id/t1_bottom"/>
+
+    <TextView
+        android:id="@+id/t1_max"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="0"
+        android:textSize="18sp"
+        app:layout_constraintRight_toRightOf="@id/secondColumn"
+        app:layout_constraintBottom_toTopOf="@id/t1_bottom"/>
+
+    <TextView
+        android:id="@+id/t1_min"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="0"
+        android:textSize="18sp"
+        app:layout_constraintRight_toRightOf="@id/thirdColumn"
+        app:layout_constraintBottom_toTopOf="@id/t1_bottom"/>
+
+    <android.support.constraint.Guideline
+        android:id="@+id/t2_bottom"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.25" />
+
+    <TextView
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="T2"
+        android:textSize="18sp"
+        app:layout_constraintRight_toRightOf="@id/firstColumn"
+        app:layout_constraintBottom_toTopOf="@id/t2_bottom"/>
+
+    <TextView
+        android:id="@+id/t2_max"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="0"
+        android:textSize="18sp"
+        app:layout_constraintRight_toRightOf="@id/secondColumn"
+        app:layout_constraintBottom_toTopOf="@id/t2_bottom"/>
+
+    <TextView
+        android:id="@+id/t2_min"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="0"
+        android:textSize="18sp"
+        app:layout_constraintRight_toRightOf="@id/thirdColumn"
+        app:layout_constraintBottom_toTopOf="@id/t2_bottom"/>
+
+    <android.support.constraint.Guideline
+        android:id="@+id/t3_bottom"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.3" />
+
+    <TextView
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="T2"
+        android:textSize="18sp"
+        app:layout_constraintRight_toRightOf="@id/firstColumn"
+        app:layout_constraintBottom_toTopOf="@id/t3_bottom"/>
+
+    <TextView
+        android:id="@+id/t3_max"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="0"
+        android:textSize="18sp"
+        app:layout_constraintRight_toRightOf="@id/secondColumn"
+        app:layout_constraintBottom_toTopOf="@id/t3_bottom"/>
+
+    <TextView
+        android:id="@+id/t3_min"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="0"
+        android:textSize="18sp"
+        app:layout_constraintRight_toRightOf="@id/thirdColumn"
+        app:layout_constraintBottom_toTopOf="@id/t3_bottom"/>
+
+    <TextView
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="PRESSURE"
+        android:textSize="24sp"
+        app:layout_constraintTop_toBottomOf="@id/t3_bottom"/>
+
+    <android.support.constraint.Guideline
+        android:id="@+id/head_bottom"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.4" />
+
+    <TextView
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="HEAD"
+        android:textSize="18sp"
+        app:layout_constraintRight_toRightOf="@id/firstColumn"
+        app:layout_constraintBottom_toTopOf="@id/head_bottom"/>
+
+    <TextView
+        android:id="@+id/head_max"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="0"
+        android:textSize="18sp"
+        app:layout_constraintRight_toRightOf="@id/secondColumn"
+        app:layout_constraintBottom_toTopOf="@id/head_bottom"/>
+
+    <TextView
+        android:id="@+id/head_min"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="0"
+        android:textSize="18sp"
+        app:layout_constraintRight_toRightOf="@id/thirdColumn"
+        app:layout_constraintBottom_toTopOf="@id/head_bottom"/>
+
+    <android.support.constraint.Guideline
+        android:id="@+id/crank_bottom"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.45" />
+
+    <TextView
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="CRANK"
+        android:textSize="18sp"
+        app:layout_constraintRight_toRightOf="@id/firstColumn"
+        app:layout_constraintBottom_toTopOf="@id/crank_bottom"/>
+
+    <TextView
+        android:id="@+id/crank_max"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="0"
+        android:textSize="18sp"
+        app:layout_constraintRight_toRightOf="@id/secondColumn"
+        app:layout_constraintBottom_toTopOf="@id/crank_bottom"/>
+
+    <TextView
+        android:id="@+id/crank_min"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="0"
+        android:textSize="18sp"
+        app:layout_constraintRight_toRightOf="@id/thirdColumn"
+        app:layout_constraintBottom_toTopOf="@id/crank_bottom"/>
+
+    <TextView
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="VIBRATIONS"
+        android:textSize="24sp"
+        app:layout_constraintTop_toBottomOf="@id/crank_bottom"/>
+
+    <android.support.constraint.Guideline
+        android:id="@+id/x_bottom"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.55" />
+
+    <TextView
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="X"
+        android:textSize="18sp"
+        app:layout_constraintRight_toRightOf="@id/firstColumn"
+        app:layout_constraintBottom_toTopOf="@id/x_bottom"/>
+
+    <TextView
+        android:id="@+id/x_max"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="0"
+        android:textSize="18sp"
+        app:layout_constraintRight_toRightOf="@id/secondColumn"
+        app:layout_constraintBottom_toTopOf="@id/x_bottom"/>
+
+    <TextView
+        android:id="@+id/x_min"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="0"
+        android:textSize="18sp"
+        app:layout_constraintRight_toRightOf="@id/thirdColumn"
+        app:layout_constraintBottom_toTopOf="@id/x_bottom"/>
+
+    <android.support.constraint.Guideline
+        android:id="@+id/y_bottom"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.6" />
+
+    <TextView
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="Y"
+        android:textSize="18sp"
+        app:layout_constraintRight_toRightOf="@id/firstColumn"
+        app:layout_constraintBottom_toTopOf="@id/y_bottom"/>
+
+    <TextView
+        android:id="@+id/y_max"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="0"
+        android:textSize="18sp"
+        app:layout_constraintRight_toRightOf="@id/secondColumn"
+        app:layout_constraintBottom_toTopOf="@id/y_bottom"/>
+
+    <TextView
+        android:id="@+id/y_min"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="0"
+        android:textSize="18sp"
+        app:layout_constraintRight_toRightOf="@id/thirdColumn"
+        app:layout_constraintBottom_toTopOf="@id/y_bottom"/>
+
+    <android.support.constraint.Guideline
+        android:id="@+id/z_bottom"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.65" />
+
+    <TextView
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="Z"
+        android:textSize="18sp"
+        app:layout_constraintRight_toRightOf="@id/firstColumn"
+        app:layout_constraintBottom_toTopOf="@id/z_bottom"/>
+
+    <TextView
+        android:id="@+id/z_max"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="0"
+        android:textSize="18sp"
+        app:layout_constraintRight_toRightOf="@id/secondColumn"
+        app:layout_constraintBottom_toTopOf="@id/z_bottom"/>
+
+    <TextView
+        android:id="@+id/z_min"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="0"
+        android:textSize="18sp"
+        app:layout_constraintRight_toRightOf="@id/thirdColumn"
+        app:layout_constraintBottom_toTopOf="@id/z_bottom"/>
+
+    <TextView
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="FFT"
+        android:textSize="24sp"
+        app:layout_constraintTop_toBottomOf="@id/z_bottom"/>
+
+    <android.support.constraint.Guideline
+        android:id="@+id/fft_x_bottom"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.75" />
+
+    <TextView
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="X"
+        android:textSize="18sp"
+        app:layout_constraintRight_toRightOf="@id/firstColumn"
+        app:layout_constraintBottom_toTopOf="@id/fft_x_bottom"/>
+
+    <TextView
+        android:id="@+id/fft_x_max"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="0"
+        android:textSize="18sp"
+        app:layout_constraintRight_toRightOf="@id/secondColumn"
+        app:layout_constraintBottom_toTopOf="@id/fft_x_bottom"/>
+
+    <TextView
+        android:id="@+id/fft_x_min"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="0"
+        android:textSize="18sp"
+        app:layout_constraintRight_toRightOf="@id/thirdColumn"
+        app:layout_constraintBottom_toTopOf="@id/fft_x_bottom"/>
+
+    <android.support.constraint.Guideline
+        android:id="@+id/fft_y_bottom"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.8" />
+
+    <TextView
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="Y"
+        android:textSize="18sp"
+        app:layout_constraintRight_toRightOf="@id/firstColumn"
+        app:layout_constraintBottom_toTopOf="@id/fft_y_bottom"/>
+
+    <TextView
+        android:id="@+id/fft_y_max"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="0"
+        android:textSize="18sp"
+        app:layout_constraintRight_toRightOf="@id/secondColumn"
+        app:layout_constraintBottom_toTopOf="@id/fft_y_bottom"/>
+
+    <TextView
+        android:id="@+id/fft_y_min"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="0"
+        android:textSize="18sp"
+        app:layout_constraintRight_toRightOf="@id/thirdColumn"
+        app:layout_constraintBottom_toTopOf="@id/fft_y_bottom"/>
+
+    <android.support.constraint.Guideline
+        android:id="@+id/fft_z_bottom"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.85" />
+
+    <TextView
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="Y"
+        android:textSize="18sp"
+        app:layout_constraintRight_toRightOf="@id/firstColumn"
+        app:layout_constraintBottom_toTopOf="@id/fft_z_bottom"/>
+
+    <TextView
+        android:id="@+id/fft_z_max"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="0"
+        android:textSize="18sp"
+        app:layout_constraintRight_toRightOf="@id/secondColumn"
+        app:layout_constraintBottom_toTopOf="@id/fft_z_bottom"/>
+
+    <TextView
+        android:id="@+id/fft_z_min"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="0"
+        android:textSize="18sp"
+        app:layout_constraintRight_toRightOf="@id/thirdColumn"
+        app:layout_constraintBottom_toTopOf="@id/fft_z_bottom"/>
 
 
-    </ScrollView>
 
-    <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:fillViewport="true" >
+</android.support.constraint.ConstraintLayout>
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="vertical">
-
-            <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_horizontal"
-                android:id="@+id/help_page_arrow"
-                android:tint="@color/done_text_color_normal"
-                app:srcCompat="@android:drawable/arrow_up_float" />
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:text="Help Page"
-                android:textSize="24sp"
-                android:gravity="center_horizontal"/>
-
-        </LinearLayout>
-
-    </ScrollView>
-
-</com.sothree.slidinguppanel.SlidingUpPanelLayout>
 

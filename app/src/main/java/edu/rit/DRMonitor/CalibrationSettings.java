@@ -1,7 +1,9 @@
 package edu.rit.DRMonitor;
 
 /**
- * Created by H on 3/25/2018.
+ * Class representation of the calibration file.
+ * When the app first loads, the calibration file gets
+ * parsed into this class
  */
 
 public class CalibrationSettings {
@@ -24,8 +26,10 @@ public class CalibrationSettings {
     private int numSamp = 20000;
     private int interval = 3600;
 
+    // Default constructor for deserialization
     public CalibrationSettings(){}
 
+    // Public constructor for creating new object in case no calibration file exists on tablet
     public CalibrationSettings(int g1_scale, int g1_shift, int g2_scale, int g2_shift, int g3_scale, int g3_shift,
                                 int p1_scale, int p1_shift, int p2_scale, int p2_shift, int t1_scale, int t1_shift,
                                 int t2_scale, int t2_shift, int t3_scale, int t3_shift, int numSamp, int interval) {
@@ -49,6 +53,7 @@ public class CalibrationSettings {
         this.interval = interval;
     }
 
+    // Getters and setters
     public int getG1_scale() {
         return g1_scale;
     }

@@ -1,7 +1,7 @@
 package edu.rit.DRMonitor;
 
 /**
- * Created by Huy on 3/5/18.
+ * Object representation of systemSettings.txt file
  */
 
 public class SystemSettings {
@@ -9,8 +9,10 @@ public class SystemSettings {
     private int serverPort;
     private long lastConnectedTime;
 
+    // Default constructor for deserialization
     public SystemSettings(){}
 
+    // Public constructor for initiating settings if local file doesn't exist
     public SystemSettings(String ipAddress, int serverPort, long lastConnectedTime) {
         this.ipAddress = ipAddress;
         this.serverPort = serverPort;

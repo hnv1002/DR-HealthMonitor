@@ -1,7 +1,5 @@
 package edu.rit.DRMonitor;
 
-import android.annotation.TargetApi;
-import android.os.Build;
 import android.os.Environment;
 
 import com.google.gson.Gson;
@@ -31,9 +29,8 @@ import java.util.zip.ZipEntry;
 import java.util.zip.ZipInputStream;
 
 /**
- * Created by H on 2/21/2018.
+ * Utility class with commonly used functions for other class to use
  */
-
 public class Utils {
     public static final String STORE_DIR = "DR_Data";
     public static final String TIME_KEY = "Time";
@@ -47,8 +44,10 @@ public class Utils {
     public static final String CRANK_CYL_PRESS_KEY = "CrankCylPress";
     public static final String ENCODER_ANG_POS_KEY = "EncoderAngPos";
 
+    // Gson object for serializing objects and deserializing string
     public static Gson gson = new Gson();
 
+    // Enum indicating different levels of wifi signal
     enum SignalStrength {
         EXCELLENT(4),
         GOOD(3),
@@ -75,6 +74,9 @@ public class Utils {
         }
     }
 
+    /**
+     * A custom comparator for sorting historical files with new files on top
+     */
     public static class FileNameSort implements Comparator<HistoricalDataFile> {
         @Override
         public int compare(HistoricalDataFile historicalDataFile, HistoricalDataFile other) {
@@ -82,6 +84,12 @@ public class Utils {
         }
     }
 
+    /**
+     * Method for extracting a zip file (currently not used)
+     * @param fileToExtract
+     * @param destDir
+     * @return
+     */
     public Result extractZipFile(String fileToExtract, String destDir) {
         Result result = new Result("Extract File");
         result.setInput(fileToExtract);
@@ -121,6 +129,10 @@ public class Utils {
         return result;
     }
 
+    /**
+     * Get list of historical data files currently available on mobile device
+     * @return
+     */
     public static ArrayList<HistoricalDataFile> getListOfFiles() {
         // Create and populate a List of historical data files
         File dataFolder = new File(Environment.getExternalStorageDirectory().getPath() + File.separator + STORE_DIR);
@@ -138,10 +150,16 @@ public class Utils {
                 }
             }
         }
+        // Sort list with new files on top
         Collections.sort(dataFiles, new FileNameSort());
         return dataFiles;
     }
 
+    /**
+     * Read a file line by line and append content to a list of string
+     * @param filename
+     * @return
+     */
     public static List<String> readFileLineByLine(String filename) {
         File file = new File(filename);
         if (file.exists() && file.isFile()) {
@@ -174,7 +192,11 @@ public class Utils {
         }
     }
 
-    @TargetApi(Build.VERSION_CODES.M)
+    /**
+     * Retrieve systemSettings.txt file and deserialize to SystemSettings object
+     * @param filename
+     * @return
+     */
     public static SystemSettings getSystemSettings(String filename) {
         File file = new File(filename);
         if (file.exists() && file.isFile()) {
@@ -186,12 +208,18 @@ public class Utils {
             }
             return new SystemSettings();
         } else {
+            // Create a new systemSettings.txt file when no such file exists on device
             SystemSettings systemSettings = new SystemSettings(MainActivity.SERVER_IP, Integer.valueOf(MainActivity.SERVER_PORT), 0);
             updateSettingsFile(systemSettings, MainActivity.SYSTEM_SETTINGS_FILE);
             return systemSettings;
         }
     }
 
+    /**
+     * Retrieve calibrationSettings.txt file and deserialize to CalibrationSettings object
+     * @param filename
+     * @return
+     */
     public static CalibrationSettings getCalibrationSettings(String filename) {
         File file = new File(filename);
         if (file.exists() && file.isFile()) {
@@ -203,6 +231,7 @@ public class Utils {
             }
             return new CalibrationSettings();
         } else {
+            // Create a new calibrationSettings.txt file when no such file exists on device
             CalibrationSettings calibrationSettings = new CalibrationSettings(1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,20000,3600);
             updateSettingsFile(calibrationSettings, MainActivity.CALIBRATION_SETTINGS_FILE);
             return calibrationSettings;
@@ -256,6 +285,11 @@ public class Utils {
         return data;
     }
 
+    /**
+     * Get the latest historical data file from files on device
+     * @param dataFiles
+     * @return
+     */
     public static String getLatestDataFile(List<HistoricalDataFile> dataFiles) {
         long latest = 0;
         String latestFile = null;
@@ -274,6 +308,12 @@ public class Utils {
         return latestFile;
     }
 
+    /**
+     * Compare a given list of files to the files exist on device
+     * and return list of files that device doesn't have
+     * @param availableFiles
+     * @return
+     */
     public static List<String> getNewFiles(List<String> availableFiles) {
         List<String> newFiles = new ArrayList<>();
         for (String file : availableFiles) {
@@ -284,6 +324,12 @@ public class Utils {
         return newFiles;
     }
 
+    /**
+     * Use encoder position from data file to compute the
+     * corresponding volume
+     * @param encoderPos
+     * @return
+     */
     public static float[][] computeVolume(float[] encoderPos) {
         if (encoderPos != null) {
             float[] headCylVolumes = new float[encoderPos.length];
@@ -303,6 +349,11 @@ public class Utils {
         return null;
     }
 
+    /**
+     * Write settings to a file (used to update systemSettings.txt and calibrationSettings.txt)
+     * @param settingsFile
+     * @param filename
+     */
     public static void updateSettingsFile(Object settingsFile, String filename) {
         String settings = Utils.toJson(settingsFile);
         try {
@@ -314,6 +365,11 @@ public class Utils {
         }
     }
 
+    /**
+     * Check to see if device has a file
+     * @param fileToCheck
+     * @return
+     */
     private static boolean hasFile(String fileToCheck) {
         for (HistoricalDataFile file : getListOfFiles()) {
             if (file.getFileName().equals(fileToCheck)) {
@@ -321,5 +377,31 @@ public class Utils {
             }
         }
         return false;
+    }
+
+    /**
+     * Remove DC offset of accelerometers from dataset to avoid FFT spike at 0
+     * @param accelX
+     * @param accelY
+     * @param accelZ
+     */
+    public static void removeDCOffset(float[] accelX, float[] accelY, float[] accelZ) {
+        float accelXMean = 0;
+        float accelYMean = 0;
+        float accelZMean = 0;
+        for (int i = 0; i < accelX.length; i++) {
+            accelXMean += accelX[i];
+            accelYMean += accelY[i];
+            accelZMean += accelZ[i];
+        }
+        accelXMean /= accelX.length;
+        accelYMean /= accelY.length;
+        accelZMean /= accelZ.length;
+
+        for (int i = 0; i < accelX.length; i++) {
+            accelX[i] = accelX[i] - accelXMean;
+            accelY[i] = accelY[i] - accelYMean;
+            accelZ[i] = accelZ[i] - accelZMean;
+        }
     }
 }

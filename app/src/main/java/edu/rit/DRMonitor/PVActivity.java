@@ -27,6 +27,9 @@ import java.util.Map;
 
 import static edu.rit.DRMonitor.Utils.STORE_DIR;
 
+/**
+ * Pressure Volume screen
+ */
 public class PVActivity extends AppCompatActivity {
 
     private MultiSpinner spinner;
@@ -44,6 +47,7 @@ public class PVActivity extends AppCompatActivity {
         domain = findViewById(R.id.pv_domain);
         range = findViewById(R.id.pv_range);
 
+        // Behavior of help page sliding panel at bottom of screen
         SlidingUpPanelLayout panel = findViewById(R.id.sliding_layout);
         panel.addPanelSlideListener(new SlidingUpPanelLayout.PanelSlideListener() {
             @Override
@@ -142,6 +146,11 @@ public class PVActivity extends AppCompatActivity {
         }.execute();
     }
 
+    /**
+     * Menu on action bar which has Scale and Home button
+     * @param menu
+     * @return
+     */
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
@@ -149,12 +158,21 @@ public class PVActivity extends AppCompatActivity {
         return true;
     }
 
+    /**
+     * When home button is clicked, navigate to Home screen
+     * @param item
+     */
     public void goToHomeView(MenuItem item) {
         finish();
         Intent intent = new Intent(getBaseContext(), MainActivity.class);
         startActivity(intent);
     }
 
+    /**
+     * When back button is clicked, navigate to History screen
+     * @param item
+     * @return
+     */
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
@@ -169,6 +187,14 @@ public class PVActivity extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
+    /**
+     * Calculate and return pressure volume graph
+     * @param dataFile
+     * @param headPressColor
+     * @param crankPressColor
+     * @param secondData
+     * @return
+     */
     private LineData plotPVCurve(Map<String, float[]> dataFile, int headPressColor, int crankPressColor, boolean secondData) {
         if (dataFile != null) {
             float[] headPress = dataFile.get(Utils.HEAD_CYL_PRESS_KEY);
@@ -216,6 +242,10 @@ public class PVActivity extends AppCompatActivity {
         return null;
     }
 
+    /**
+     * Convert from psi to kPa scale
+     * @param item
+     */
     public void kPaScale(MenuItem item) {
         if (chart != null && currentScale != null && !currentScale.equals("kPa")) {
             LineData newData = new LineData();
@@ -237,6 +267,10 @@ public class PVActivity extends AppCompatActivity {
         }
     }
 
+    /**
+     * Convert from kPa to psi scale
+     * @param item
+     */
     public void psiScale(MenuItem item) {
         if (chart != null && currentScale != null && !currentScale.equals("psi")) {
             LineData newData = new LineData();
